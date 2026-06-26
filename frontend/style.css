@@ -543,6 +543,89 @@ tbody tr:hover {
     color: #2b6cb0;
 }
 
+.grape-varieties {
+    margin-top: 18px;
+    padding: 18px;
+    background: linear-gradient(135deg, #fffaf0 0%, #fff5f5 100%);
+    border: 1px solid #fbd38d;
+    border-radius: 10px;
+}
+
+.grape-varieties__header {
+    margin-bottom: 14px;
+}
+
+.grape-varieties__header h3 {
+    margin-bottom: 5px;
+    color: #2d3748;
+    font-size: 18px;
+}
+
+.grape-varieties__header p,
+.grape-varieties__footnote {
+    color: #744210;
+    font-size: 13px;
+    line-height: 1.45;
+}
+
+.grape-varieties__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: 12px;
+}
+
+.grape-variety-card {
+    padding: 14px;
+    background: #ffffff;
+    border: 1px solid #f6ad55;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(221, 107, 32, 0.08);
+}
+
+.grape-variety-card--nearest {
+    border-color: #cbd5e0;
+}
+
+.grape-variety-card__top {
+    display: flex;
+    gap: 10px;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.grape-variety-card__top strong {
+    color: #1a202c;
+    font-size: 15px;
+}
+
+.grape-variety-card__top span {
+    flex: 0 0 auto;
+    padding: 3px 8px;
+    color: #975a16;
+    background: #feebc8;
+    border-radius: 999px;
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.grape-variety-card__range {
+    margin-bottom: 6px;
+    color: #2b6cb0;
+    font-size: 13px;
+    font-weight: 700;
+}
+
+.grape-variety-card__note {
+    color: #4a5568;
+    font-size: 13px;
+    line-height: 1.4;
+}
+
+.grape-varieties__footnote {
+    margin-top: 12px;
+}
+
 @media (max-width: 720px) {
     body {
         padding: 12px;

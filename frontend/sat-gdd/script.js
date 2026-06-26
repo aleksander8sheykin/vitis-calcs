@@ -17,6 +17,7 @@
     const warningsEl = document.getElementById('warnings');
     const resultsBody = document.getElementById('results-body');
     const averagesEl = document.getElementById('averages');
+    const grapeVarietiesEl = document.getElementById('grape-varieties');
     const chartCanvas = document.getElementById('results-chart');
     const chartCtx = chartCanvas ? chartCanvas.getContext('2d') : null;
     const mapEl = document.getElementById('station-map');
@@ -38,7 +39,8 @@
         !dataInfoEl ||
         !warningsEl ||
         !resultsBody ||
-        !averagesEl
+        !averagesEl ||
+        !grapeVarietiesEl
     ) {
         return;
     }
@@ -50,6 +52,26 @@
     let mapStationsAbortController = null;
     let mapStationsTimeout = null;
     const mapMarkers = new Map();
+
+    const GRAPE_VARIETIES = [
+        { name: 'Рислинг', type: 'белый', min: 850, max: 1400, note: 'прохладный климат, высокая кислотность' },
+        { name: 'Пино Нуар', type: 'красный', min: 900, max: 1450, note: 'прохладные и умеренные регионы' },
+        { name: 'Шардоне', type: 'белый', min: 950, max: 1550, note: 'широкий диапазон стилей' },
+        { name: 'Совиньон Блан', type: 'белый', min: 900, max: 1450, note: 'прохладный и умеренный климат' },
+        { name: 'Гевюрцтраминер', type: 'белый', min: 950, max: 1450, note: 'ароматные вина прохладных зон' },
+        { name: 'Гаме', type: 'красный', min: 1000, max: 1500, note: 'раннее созревание' },
+        { name: 'Шенен Блан', type: 'белый', min: 1000, max: 1600, note: 'умеренный климат' },
+        { name: 'Каберне Фран', type: 'красный', min: 1200, max: 1700, note: 'умеренно тёплые регионы' },
+        { name: 'Мерло', type: 'красный', min: 1250, max: 1750, note: 'умеренно тёплый климат' },
+        { name: 'Темпранильо', type: 'красный', min: 1300, max: 1850, note: 'тёплые сухие регионы' },
+        { name: 'Неббиоло', type: 'красный', min: 1300, max: 1850, note: 'длинный сезон созревания' },
+        { name: 'Санджовезе', type: 'красный', min: 1400, max: 1950, note: 'умеренно тёплые и тёплые зоны' },
+        { name: 'Сира / Шираз', type: 'красный', min: 1400, max: 2000, note: 'тёплый климат' },
+        { name: 'Каберне Совиньон', type: 'красный', min: 1500, max: 2050, note: 'тёплые регионы, позднее созревание' },
+        { name: 'Зинфандель', type: 'красный', min: 1500, max: 2050, note: 'тёплый климат' },
+        { name: 'Гренаш', type: 'красный', min: 1600, max: 2150, note: 'жаркие и сухие регионы' },
+        { name: 'Мурведр', type: 'красный', min: 1700, max: 2250, note: 'очень тёплый климат, позднее созревание' },
+    ];
 
     stationInput.addEventListener('input', function () {
         const query = this.value.trim();
@@ -384,7 +406,7 @@
         }
     }
 
-    async function calculate() {
+    async function calculate(options = {}) {
         const stationId = stationIdInput.value;
         if (!stationId) {
             return;
@@ -414,6 +436,10 @@
                 end: String(endYear),
                 season_only: seasonOnly ? '1' : '0',
             });
+
+            if (options.updateUrl !== false) {
+                syncUrlParams(stationId, startYear, endYear, seasonOnly);
+            }
 
             const response = await fetch(`${API_BASE}/calculate?${params.toString()}`);
 
@@ -498,11 +524,12 @@
             ? (totalCalculationDays / rowsWithCalculationDays).toFixed(1)
             : null;
         const avgDaysLabel = data.season_only ? 'Средняя длина сезона' : 'Среднее дней в расчёте';
+        const avgGdd = calculatedResults.length > 0 ? totalGdd / calculatedResults.length : null;
         const averages = [];
 
         if (calculatedResults.length > 0) {
             averages.push(`<div>Средний SAT: <span>${Math.round(totalSat / calculatedResults.length)} °C</span></div>`);
-            averages.push(`<div>Средний GDD: <span>${Math.round(totalGdd / calculatedResults.length)}</span></div>`);
+            averages.push(`<div>Средний GDD: <span>${Math.round(avgGdd)}</span></div>`);
         } else {
             averages.push('<div>Средний SAT/GDD: <span>нет рассчитанных лет</span></div>');
         }
@@ -520,6 +547,7 @@
         averages.push(`<div>Показано лет: <span>${results.length}</span></div>`);
         averagesEl.innerHTML = averages.join('');
 
+        displayGrapeVarieties(avgGdd);
         drawChart(calculatedResults);
         resultsContainer.classList.remove('hidden');
     }
@@ -542,6 +570,80 @@
 
         warningsEl.appendChild(list);
         warningsEl.classList.remove('hidden');
+    }
+
+    function displayGrapeVarieties(avgGdd) {
+        grapeVarietiesEl.innerHTML = '';
+
+        if (!Number.isFinite(avgGdd)) {
+            grapeVarietiesEl.classList.add('hidden');
+            return;
+        }
+
+        const roundedGdd = Math.round(avgGdd);
+        const matched = GRAPE_VARIETIES
+            .filter((variety) => roundedGdd >= variety.min && roundedGdd <= variety.max)
+            .sort((a, b) => distanceToRangeCenter(roundedGdd, a) - distanceToRangeCenter(roundedGdd, b));
+
+        const varieties = matched.length > 0
+            ? matched
+            : GRAPE_VARIETIES
+                .map((variety) => ({
+                    ...variety,
+                    distance: distanceToRange(roundedGdd, variety),
+                }))
+                .sort((a, b) => a.distance - b.distance)
+                .slice(0, 5);
+
+        const title = matched.length > 0
+            ? `🍇 Подходящие сорта по среднему GDD (${roundedGdd})`
+            : `🍇 Ближайшие сорта по среднему GDD (${roundedGdd})`;
+        const description = matched.length > 0
+            ? 'Сорта, для которых среднее значение GDD попадает в ориентировочный диапазон созревания.'
+            : 'Точного совпадения с каталогом нет, показаны ближайшие ориентировочные диапазоны созревания.';
+
+        grapeVarietiesEl.innerHTML = `
+            <div class="grape-varieties__header">
+                <h3>${escapeHtml(title)}</h3>
+                <p>${escapeHtml(description)}</p>
+            </div>
+            <div class="grape-varieties__grid">
+                ${varieties.map((variety) => `
+                    <article class="grape-variety-card${matched.length === 0 ? ' grape-variety-card--nearest' : ''}">
+                        <div class="grape-variety-card__top">
+                            <strong>${escapeHtml(variety.name)}</strong>
+                            <span>${escapeHtml(variety.type)}</span>
+                        </div>
+                        <div class="grape-variety-card__range">${escapeHtml(formatGddRange(variety))}</div>
+                        <div class="grape-variety-card__note">${escapeHtml(variety.note)}</div>
+                    </article>
+                `).join('')}
+            </div>
+            <div class="grape-varieties__footnote">
+                Диапазоны ориентировочные: фактическая пригодность зависит от сорта/клона, экспозиции, почв, осадков, риска заморозков и агротехники.
+            </div>
+        `;
+        grapeVarietiesEl.classList.remove('hidden');
+    }
+
+    function distanceToRange(value, variety) {
+        if (value < variety.min) {
+            return variety.min - value;
+        }
+
+        if (value > variety.max) {
+            return value - variety.max;
+        }
+
+        return 0;
+    }
+
+    function distanceToRangeCenter(value, variety) {
+        return Math.abs(value - ((variety.min + variety.max) / 2));
+    }
+
+    function formatGddRange(variety) {
+        return `${variety.min}–${variety.max} GDD`;
     }
 
     function buildDataInfo(data) {
@@ -810,6 +912,8 @@
         errorEl.classList.remove('hidden');
         warningsEl.classList.add('hidden');
         warningsEl.innerHTML = '';
+        grapeVarietiesEl.classList.add('hidden');
+        grapeVarietiesEl.innerHTML = '';
     }
 
     function hideError() {
@@ -817,7 +921,85 @@
         errorEl.textContent = '';
     }
 
-    const currentYear = new Date().getFullYear();
-    endYearInput.value = currentYear;
-    startYearInput.value = currentYear - 19;
+    function initializeDefaults() {
+        const currentYear = new Date().getFullYear();
+        endYearInput.value = currentYear;
+        startYearInput.value = currentYear - 19;
+    }
+
+    async function initFromUrl() {
+        const params = new URLSearchParams(window.location.search);
+        const stationId = (params.get('station_id') || params.get('station') || params.get('id') || '').trim();
+
+        const startYear = parseInt(params.get('start') || '', 10);
+        const endYear = parseInt(params.get('end') || '', 10);
+
+        if (Number.isFinite(startYear)) {
+            startYearInput.value = startYear;
+        }
+
+        if (Number.isFinite(endYear)) {
+            endYearInput.value = endYear;
+        }
+
+        if (params.has('season_only')) {
+            seasonOnlyInput.checked = parseBooleanParam(params.get('season_only'), seasonOnlyInput.checked);
+        }
+
+        if (!stationId) {
+            return;
+        }
+
+        const stationName = (params.get('station_name') || params.get('name') || stationId).trim();
+        selectStation(stationId, stationName || stationId, null, { focusMap: false });
+
+        try {
+            const response = await fetch(`${API_BASE}/stations/get?id=${encodeURIComponent(stationId)}`);
+
+            if (response.ok) {
+                const data = await response.json();
+
+                if (data.station) {
+                    selectStation(data.station.id, data.station.name, data.station, { focusMap: true });
+                }
+            }
+        } catch (err) {
+            console.error('URL station load error:', err);
+        }
+
+        calculate({ updateUrl: false });
+    }
+
+    function parseBooleanParam(value, fallback) {
+        if (value === null || value === undefined || value === '') {
+            return fallback;
+        }
+
+        return ['1', 'true', 'yes', 'on'].includes(String(value).trim().toLowerCase());
+    }
+
+    function syncUrlParams(stationId, startYear, endYear, seasonOnly) {
+        if (!window.history || !window.location) {
+            return;
+        }
+
+        const params = new URLSearchParams(window.location.search);
+        params.set('station_id', stationId);
+        params.set('start', String(startYear));
+        params.set('end', String(endYear));
+        params.set('season_only', seasonOnly ? '1' : '0');
+
+        if (selectedStationName) {
+            params.set('station_name', selectedStationName);
+        } else {
+            params.delete('station_name');
+        }
+
+        const query = params.toString();
+        const nextUrl = `${window.location.pathname}${query ? `?${query}` : ''}${window.location.hash}`;
+        window.history.replaceState({}, '', nextUrl);
+    }
+
+    initializeDefaults();
+    initFromUrl();
 })();

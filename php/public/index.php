@@ -84,6 +84,33 @@ if ($uri === '/api/stations/search') {
     exit;
 }
 
+// Получение станции по ID
+if ($uri === '/api/stations/get') {
+    $id = trim((string) ($_GET['id'] ?? ''));
+
+    if ($id === '') {
+        http_response_code(400);
+        echo json_encode(['error' => 'Не указан ID станции'], JSON_UNESCAPED_UNICODE);
+        exit;
+    }
+
+    try {
+        $finder = new StationFinder();
+        $station = $finder->getById($id);
+        if ($station === null) {
+            http_response_code(404);
+            echo json_encode(['error' => 'Станция не найдена'], JSON_UNESCAPED_UNICODE);
+            exit;
+        }
+        echo json_encode(['station' => $station], JSON_UNESCAPED_UNICODE);
+    } catch (\Throwable $e) {
+        http_response_code(500);
+        echo json_encode(['error' => $e->getMessage()], JSON_UNESCAPED_UNICODE);
+    }
+
+    exit;
+}
+
 // Станции с координатами в пределах видимой области карты
 if ($uri === '/api/stations/bounds') {
     $requiredBounds = ['south', 'west', 'north', 'east'];
