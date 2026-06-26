@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SAT / GDD Калькулятор</title>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">
+    <link rel="stylesheet" href="../style.css">
+</head>
+<body>
+    <div class="container">
+        <nav class="top-nav">
+            <a href="/">← Все калькуляторы</a>
+        </nav>
+
+        <h1>🌡️ SAT / GDD Калькулятор</h1>
+        <p class="subtitle">
+            Сумма активных температур (SAT) и вегетативных градусо-дней (GDD).
+            Базовый период: 1 марта — 30 ноября для северного полушария;
+            1 сентября предыдущего года — 31 мая текущего года для южного.
+        </p>
+
+        <div class="controls">
+            <div class="form-row form-row--station">
+                <div class="search-group">
+                    <label for="station-search">Метеостанция</label>
+                    <div class="autocomplete-wrapper">
+                        <input
+                            type="text"
+                            id="station-search"
+                            placeholder="Начните вводить название станции на латинице..."
+                            autocomplete="off"
+                        >
+                        <ul id="suggestions" class="suggestions"></ul>
+                    </div>
+                    <input type="hidden" id="station-id">
+                    <div id="selected-station" class="selected-station"></div>
+
+                    <div class="station-map-card">
+                        <div class="station-map-header">
+                            <div>
+                                <div class="station-map-title">Карта метеостанций</div>
+                                <div class="station-map-hint">
+                                    Переместите карту и выберите станцию кликом по маркеру.
+                                </div>
+                            </div>
+                            <div id="map-status" class="station-map-status">Загрузка карты...</div>
+                        </div>
+                        <div id="station-map" class="station-map" aria-label="Карта метеостанций"></div>
+                    </div>
+
+                    <div class="popular-stations" aria-label="Популярные винные метеостанции мира">
+                        <span>Популярные винные регионы:</span>
+                        <button type="button" class="station-chip" data-station-id="07510" data-station-name="Bordeaux / Merignac">Бордо</button>
+                        <button type="button" class="station-chip" data-station-id="07630" data-station-name="Toulouse / Blagnac">Тулуза</button>
+                        <button type="button" class="station-chip" data-station-id="07280" data-station-name="Dijon">Бургундия / Дижон</button>
+                        <button type="button" class="station-chip" data-station-id="07643" data-station-name="Montpellier">Лангедок / Монпелье</button>
+                        <button type="button" class="station-chip" data-station-id="07650" data-station-name="Marseille / Marignane">Прованс / Марсель</button>
+                        <button type="button" class="station-chip" data-station-id="08222" data-station-name="Madrid">Мадрид</button>
+                        <button type="button" class="station-chip" data-station-id="08181" data-station-name="Barcelona / Aeropuerto">Барселона</button>
+                        <button type="button" class="station-chip" data-station-id="08285" data-station-name="Valencia">Валенсия</button>
+                        <button type="button" class="station-chip" data-station-id="08391" data-station-name="Sevilla / San Pablo">Севилья</button>
+                        <button type="button" class="station-chip" data-station-id="16090" data-station-name="Verona / Villafranca">Верона</button>
+                        <button type="button" class="station-chip" data-station-id="08042" data-station-name="Santiago / Labacolla">Галисия / Сантьяго</button>
+                        <button type="button" class="station-chip" data-station-id="87420" data-station-name="Mendoza Observatori / Villa Hipódro">Мендоса</button>
+                        <button type="button" class="station-chip" data-station-id="68816" data-station-name="Cape Town Airport">Кейптаун</button>
+                        <button type="button" class="station-chip" data-station-id="94608" data-station-name="Perth">Перт</button>
+                        <button type="button" class="station-chip" data-station-id="94866" data-station-name="Melbourne Airport">Мельбурн</button>
+                        <button type="button" class="station-chip" data-station-id="93119" data-station-name="Auckland Airport">Окленд</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row form-row--settings">
+                <div class="range-group">
+                    <label>
+                        Начальный год
+                        <input type="number" id="start-year" min="1970" max="2030" value="2007">
+                    </label>
+                    <label>
+                        Конечный год
+                        <input type="number" id="end-year" min="1970" max="2030" value="2026">
+                    </label>
+                </div>
+
+                <div class="options-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" id="season-only" checked>
+                        Автоматически уточнять границы сезона
+                    </label>
+                    <div class="hint">
+                        Без опции SAT/GDD считаются за фиксированный период. С опцией старт сезона — первая серия 5+ дней подряд выше 10 °C весной,
+                        конец — день перед первой серией 5+ дней подряд ≤ 10 °C осенью.
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-row form-row--actions">
+                <button id="calc-btn" disabled>Рассчитать</button>
+            </div>
+        </div>
+
+        <div id="loading" class="loading hidden">Загрузка данных...</div>
+        <div id="error" class="error hidden"></div>
+
+        <div id="results-container" class="results-container hidden">
+            <h2 id="results-title"></h2>
+            <div id="data-info" class="data-info"></div>
+            <div id="warnings" class="warnings hidden"></div>
+            <div class="chart-card">
+                <div class="chart-title">Динамика SAT и GDD по годам</div>
+                <canvas id="results-chart" width="1000" height="360" aria-label="График SAT и GDD"></canvas>
+            </div>
+            <div class="table-wrapper">
+                <table id="results-table">
+                    <thead>
+                        <tr>
+                            <th>Год</th>
+                            <th>SAT (°C)</th>
+                            <th>GDD</th>
+                            <th>Период расчёта</th>
+                            <th>Дней в расчёте</th>
+                            <th>Дней с данными</th>
+                        </tr>
+                    </thead>
+                    <tbody id="results-body"></tbody>
+                </table>
+            </div>
+            <div id="averages" class="averages"></div>
+            <div id="grape-varieties" class="grape-varieties hidden"></div>
+        </div>
+    </div>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>

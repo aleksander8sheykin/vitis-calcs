@@ -1,0 +1,12 @@
+{
+    "name": "vine-calcs/backend",
+    "description": "SAT/GDD calculator",
+    "require": {
+        "php": "^8.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/"
+        }
+    }
+}

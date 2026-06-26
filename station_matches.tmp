@@ -1,0 +1,131 @@
+\n### Bordeaux
+07510    | Bordeaux / Merignac                 | FR | B        | 1901-01-01..2026-02-28 | {'national': None, 'wmo': '07510', 'icao': 'LFBD'}
+\n### Toulouse
+07630    | Toulouse / Blagnac                  | FR | N        | 1947-01-01..2026-02-28 | {'national': None, 'wmo': '07630', 'icao': 'LFBO'}
+07631    | Toulouse / Francazal                | FR | N        | 1999-04-13..2022-03-29 | {'national': None, 'wmo': '07631', 'icao': 'LFBF'}
+\n### Dijon
+07280    | Dijon                               | FR | D        | 1973-01-01..2025-01-12 | {'national': None, 'wmo': '07280', 'icao': 'LFSD'}
+\n### Reims
+07070    | Reims                               | FR | G        | 1973-06-06..2012-05-22 | {'national': None, 'wmo': '07070', 'icao': 'LFSR'}
+LFQA0    | Reims-Prunay / Sillery              | FR | G        | 2012-05-11..2022-04-25 | {'national': None, 'wmo': None, 'icao': 'LFQA'}
+\n### Montpellier
+07643    | Montpellier                         | FR | K        | 1973-01-01..2025-01-12 | {'national': None, 'wmo': '07643', 'icao': 'LFMT'}
+\n### Marseille
+07650    | Marseille / Marignane               | FR | U        | 1921-01-01..2026-02-28 | {'national': None, 'wmo': '07650', 'icao': 'LFML'}
+\n### Porto
+08524    | Porto Santo                         | PT | MD       | 1973-01-01..2025-08-01 | {'national': None, 'wmo': '08524', 'icao': 'LPPS'}
+08545    | Porto / Pedras Rubras               | PT | PO       | 1973-01-08..2022-04-25 | {'national': None, 'wmo': '08545', 'icao': 'LPPR'}
+08546    | Porto / Serra Do Pilar              | PT | PO       | 1940-12-31..2026-02-21 | {'national': None, 'wmo': '08546', 'icao': None}
+08554    | Faro / Aeroporto                    | PT | FA       | 1973-01-01..2023-10-28 | {'national': None, 'wmo': '08554', 'icao': 'LPFR'}
+13105    | Portoroz                            | SI |          | 2005-01-02..2022-04-25 | {'national': None, 'wmo': '13105', 'icao': 'LJPZ'}
+16334    | Palascia / Porto Badisco            | IT | PU       | 2005-09-16..2022-04-03 | {'national': None, 'wmo': '16334', 'icao': None}
+81921    | Porto Walter                        | BR | AC       | 2016-07-07..2020-03-06 | {'national': None, 'wmo': '81921', 'icao': None}
+81932    | Porto Velho / Santo Antônio do Rio  | BR | RO       | 2016-09-23..2022-02-23 | {'national': None, 'wmo': '81932', 'icao': None}
+82184    | Porto De Moz                        | BR | PA       | 1968-07-01..1988-02-13 | {'national': None, 'wmo': '82184', 'icao': None}
+82193    | Belem Aeroporto                     | BR | PA       | 1942-10-01..2025-08-24 | {'national': None, 'wmo': '82193', 'icao': 'SBBE'}
+82244    | Santarem-Aeroporto                  | BR | PA       | 1968-05-01..2024-12-06 | {'national': None, 'wmo': '82244', 'icao': 'SBSN'}
+82281    | Sao Luiz Aeroporto                  | BR | MA       | 1943-05-02..2022-04-25 | {'national': None, 'wmo': '82281', 'icao': 'SBSL'}
+\n### Lisbon
+\n### Madrid
+08221    | Madrid / Barajas                    | ES | M        | 1945-01-01..2026-02-26 | {'national': None, 'wmo': '08221', 'icao': 'LEMD'}
+08222    | Madrid                              | ES | M        | 1920-01-01..2026-02-26 | {'national': None, 'wmo': '08222', 'icao': None}
+08223    | Madrid / Cuatro Vientos             | ES | M        | 1945-05-01..2026-02-26 | {'national': None, 'wmo': '08223', 'icao': 'LEVS'}
+08224    | Madrid / Getafe                     | ES | M        | 1951-01-01..2026-02-26 | {'national': None, 'wmo': '08224', 'icao': 'LEGT'}
+08227    | Madrid / Torrejon                   | ES | M        | 1957-10-01..2022-04-25 | {'national': None, 'wmo': '08227', 'icao': 'LETO'}
+\n### Barcelona
+08181    | Barcelona / Aeropuerto              | ES | CT       | 1924-03-01..2026-02-26 | {'national': None, 'wmo': '08181', 'icao': 'LEBL'}
+80419    | Barcelona                           | VE | B        | 1973-05-11..2023-10-06 | {'national': None, 'wmo': '80419', 'icao': 'SVBC'}
+\n### Valencia
+08284    | Valencia / Aeropuerto               | ES | VC       | 1973-01-01..2025-08-21 | {'national': None, 'wmo': '08284', 'icao': 'LEVC'}
+08285    | Valencia                            | ES | VC       | 1935-01-01..2026-02-26 | {'national': None, 'wmo': '08285', 'icao': None}
+80472    | Valencia                            | VE | G        | 1991-12-02..2023-10-06 | {'national': None, 'wmo': '80472', 'icao': 'SVVA'}
+\n### Sevilla
+08391    | Sevilla / San Pablo                 | ES | AN       | 1951-01-01..2026-02-26 | {'national': None, 'wmo': '08391', 'icao': 'LEZL'}
+\n### Florence
+KFLO0    | Florence / Malibu                   | US | SC       | 1973-01-01..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KFLO'}
+KGPM0    | Grand Prairie / Florence Hill       | US | TX       | 2010-04-11..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KGPM'}
+\n### Rome
+03967    | Casement Aerodrome                  | IE | L        | 1987-02-01..2025-08-23 | {'national': None, 'wmo': '03967', 'icao': 'EIME'}
+14307    | Pula Aerodrome                      | HR |          | 1997-09-14..2022-04-25 | {'national': None, 'wmo': '14307', 'icao': 'LDPL'}
+37639    | Agstapha Aerodrome                  | AZ | AGA      | 1955-01-01..1991-09-25 | {'national': None, 'wmo': '37639', 'icao': None}
+37673    | Khachmaz Aerodrome                  | AZ | XAC      | 1955-02-03..1987-12-31 | {'national': None, 'wmo': '37673', 'icao': None}
+37849    | Gazimammad Aerodrome                | AZ | HAC      | 1936-01-01..1991-12-31 | {'national': None, 'wmo': '37849', 'icao': None}
+37905    | Beylagan Aerodrome                  | AZ | BEY      | 1936-01-01..2017-08-28 | {'national': None, 'wmo': '37905', 'icao': None}
+42452    | Kota Aerodrome                      | IN | RJ       | 1961-07-01..2025-08-24 | {'national': None, 'wmo': '42452', 'icao': 'VIKO'}
+42748    | Baroda Aerodrome                    | IN | GJ       | 2020-01-15..2022-04-25 | {'national': None, 'wmo': '42748', 'icao': 'VABO'}
+43014    | Aurangabad Chikalthan Aerodrome     | IN | MM       | 1951-10-08..2027-12-11 | {'national': None, 'wmo': '43014', 'icao': 'VAAU'}
+48350    | Loei Agromet / Ban Nong Bon         | TH | LE       | 2019-08-30..2020-09-18 | {'national': None, 'wmo': '48350', 'icao': None}
+48358    | Nakhon Phanom Agromet / Ban Namuang | TH | KH       | 2020-09-18..2020-09-18 | {'national': None, 'wmo': '48358', 'icao': None}
+48384    | Tha Phra Agromet / Ban Nong Khoi    | TH | KK       | 2020-09-18..2020-09-18 | {'national': None, 'wmo': '48384', 'icao': None}
+\n### Milan
+16066    | Milano / Malpensa                   | IT | LM       | 1973-01-17..2022-04-25 | {'national': None, 'wmo': '16066', 'icao': 'LIMC'}
+16080    | Milano / Linate                     | IT | LM       | 1973-01-02..2022-04-25 | {'national': None, 'wmo': '16080', 'icao': 'LIML'}
+16081    | Milano Linate                       | IT | LM       | 2005-07-30..2018-12-16 | {'national': None, 'wmo': '16081', 'icao': None}
+2AYO3    | Milan                               | CA | QC       | 2000-01-02..2015-10-06 | {'national': '5411', 'wmo': None, 'icao': None}
+KGNT0    | Grants-Milan                        | US | NM       | 1948-01-02..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KGNT'}
+\n### Turin
+28255    | Turinsk                             | RU | SVE      | 1936-01-01..2019-06-30 | {'national': None, 'wmo': '28255', 'icao': None}
+80435    | Maturin                             | VE | N        | 1973-05-11..2023-10-05 | {'national': None, 'wmo': '80435', 'icao': 'SVMT'}
+\n### Verona
+16089    | Verona / Rivoltella                 | IT | VN       | 2005-07-30..2021-05-29 | {'national': None, 'wmo': '16089', 'icao': None}
+16090    | Verona / Villafranca                | IT | VN       | 1945-05-18..2025-08-24 | {'national': None, 'wmo': '16090', 'icao': 'LIPX'}
+74480    | Verona, Ny. Af                      | US | NY       | 1942-07-02..2022-04-25 | {'national': None, 'wmo': '74480', 'icao': 'KRME'}
+\n### Vienna
+\n### Napa
+29023    | Napas                               | RU | TOM      | 1936-01-01..2025-08-24 | {'national': None, 'wmo': '29023', 'icao': None}
+37001    | Anapa                               | RU |          | 1959-01-01..2024-01-11 | {'national': None, 'wmo': '37001', 'icao': None}
+89269    | University Wi Id 8912 Bonaparte Par | AQ |          | 1996-05-06..2014-09-23 | {'national': None, 'wmo': '89269', 'icao': None}
+91189    | Kaanapali / Kaanapali Landing       | US | HI       | 1968-05-01..1986-01-25 | {'national': None, 'wmo': '91189', 'icao': None}
+95913    | Mount Moornapa                      | AU | VIC      | 1750-02-01..2026-03-17 | {'national': None, 'wmo': '95913', 'icao': None}
+KAPC0    | Napa / Middleton                    | US | CA       | 2000-01-02..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KAPC'}
+PANA0    | Napakiak                            | US | AK       | 2016-03-03..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'PANA'}
+URKA0    | Krasnyy Kurgan / Anapa              | RU | KDA      | 2001-10-28..2022-04-25 | {'national': None, 'wmo': None, 'icao': 'URKA'}
+\n### Sonoma
+\n### Santa Rosa
+78717    | Santa Rosa De Copan                 | HN | CP       | 1984-03-25..2003-11-30 | {'national': None, 'wmo': '78717', 'icao': 'MHSR'}
+85139    | Santa Rosa                          | BO | B        | 2011-12-01..2025-08-22 | {'national': None, 'wmo': '85139', 'icao': None}
+86950    | Santa Rosa                          | BR | RS       | 2016-07-07..2021-12-26 | {'national': None, 'wmo': '86950', 'icao': None}
+87623    | Santa Rosa Aerodrome                | AR | L        | 1951-01-01..2025-08-22 | {'national': None, 'wmo': '87623', 'icao': 'SAZR'}
+KSTS0    | Santa Rosa / Shiloh                 | US | CA       | 2000-01-02..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KSTS'}
+KSXU0    | Santa Rosa                          | US | NM       | 2020-01-14..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KSXU'}
+\n### Walla Walla
+72788    | Walla Walla, Wa                     | US | WA       | 1916-06-01..1988-08-31 | {'national': None, 'wmo': '72788', 'icao': None}
+A13Z0    | Walla Walla Regional Airport        | US | WA       | 2022-04-24..2022-04-26 | {'national': None, 'wmo': None, 'icao': 'KALW'}
+\n### Yakima
+72781    | Yakima Air Terminal                 | US | WA       | 1946-09-06..2026-03-24 | {'national': None, 'wmo': '72781', 'icao': 'KYKM'}
+KFCT0    | Yakima / Pomona Heights             | US | WA       | 2003-08-02..2008-09-10 | {'national': None, 'wmo': None, 'icao': 'K1YT'}
+\n### Paso Robles
+KPRB0    | Paso Robles / Estrella              | US | CA       | 1942-02-02..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'KPRB'}
+\n### Santiago
+08042    | Santiago / Labacolla                | ES | GA       | 1943-11-01..2026-02-26 | {'national': None, 'wmo': '08042', 'icao': 'LEST'}
+78264    | Santiago De Cuba, Oriente           | CU | SC       | 1953-04-13..2022-04-25 | {'national': None, 'wmo': '78264', 'icao': 'MUCU'}
+78460    | Santiago                            | DO | SA       | 2005-10-18..2022-04-22 | {'national': None, 'wmo': '78460', 'icao': 'MDST'}
+80099    | Arauca / Santiago Perez             | CO | ARA      | 1964-09-17..2025-04-01 | {'national': None, 'wmo': '80099', 'icao': 'SKUC'}
+85577    | Santiago Q. Normal                  | CL | RM       | 1964-05-22..2025-08-24 | {'national': None, 'wmo': '85577', 'icao': None}
+85579    | Santiago / Ochagavía                | CL | RM       | 1975-08-28..2004-11-19 | {'national': None, 'wmo': '85579', 'icao': 'SCTI'}
+86976    | Santiago                            | BR | RS       | 2016-07-07..2022-02-19 | {'national': None, 'wmo': '86976', 'icao': None}
+87129    | Santiago Del Estero Aero.           | AR | G        | 1980-06-13..2022-03-02 | {'national': None, 'wmo': '87129', 'icao': 'SANE'}
+GCGM0    | Alajero / Playa de Santiago         | ES | CN       | 2020-01-14..2022-04-24 | {'national': None, 'wmo': None, 'icao': 'GCGM'}
+\n### Mendoza
+87418    | Mendoza Aerodrome                   | AR | M        | 1957-06-30..2025-08-24 | {'national': None, 'wmo': '87418', 'icao': 'SAME'}
+87420    | Mendoza Observatori / Villa Hipódro | AR | M        | 1973-01-01..2026-02-28 | {'national': None, 'wmo': '87420', 'icao': None}
+\n### Cape Town
+68816    | Cape Town Airport                   | ZA | WC       | 1973-01-02..2027-12-30 | {'national': None, 'wmo': '68816', 'icao': 'FACT'}
+\n### Stellenbosch
+\n### Perth
+94608    | Perth                               | AU | WA       | 1750-02-01..2026-03-18 | {'national': None, 'wmo': '94608', 'icao': None}
+94610    | Perth Airport                       | AU | WA       | 1750-02-01..2026-03-17 | {'national': None, 'wmo': '94610', 'icao': 'YPPH'}
+YPJT0    | Perth / Canning Vale                | AU | WA       | 2009-10-23..2022-04-10 | {'national': None, 'wmo': None, 'icao': 'YPJT'}
+\n### Adelaide
+94672    | Adelaide Airport                    | AU | SA       | 1925-04-01..2025-08-23 | {'national': None, 'wmo': '94672', 'icao': 'YPAD'}
+94675    | Adelaide (West Terrace /  ngayirdap | AU | SA       | 1977-02-01..2020-07-31 | {'national': None, 'wmo': '94648', 'icao': None}
+\n### Melbourne
+72204    | Melbourne International             | US | FL       | 1974-11-13..2026-03-21 | {'national': None, 'wmo': '72204', 'icao': 'KMLB'}
+94866    | Melbourne Airport                   | AU | VIC      | 1750-02-01..2026-03-17 | {'national': None, 'wmo': '94866', 'icao': 'YMML'}
+\n### Auckland
+0JPFS    | St Malo D Auckland                  | CA | QC       | 2000-01-01..2022-10-31 | {'national': '5502', 'wmo': None, 'icao': None}
+93110    | Auckland Aerodrome Aws              | NZ | AUK      | 1994-08-02..2025-09-22 | {'national': None, 'wmo': '93110', 'icao': None}
+93119    | Auckland Airport                    | NZ | AUK      | 1965-12-31..2025-08-24 | {'national': None, 'wmo': '93119', 'icao': 'NZAA'}
+\n### Blenheim
+\n### Stavropol
+34949    | Stavropol                           | RU | STA      | 1959-01-02..2023-12-30 | {'national': None, 'wmo': '34949', 'icao': 'URMT'}
