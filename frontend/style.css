@@ -342,32 +342,6 @@ button:disabled {
     font-size: 10px;
 }
 
-.map-popup {
-    min-width: 190px;
-    color: #2d3748;
-    font-size: 13px;
-    line-height: 1.45;
-}
-
-.map-popup strong {
-    display: block;
-    margin-bottom: 5px;
-    color: #1a202c;
-}
-
-.map-popup-button {
-    width: 100%;
-    height: auto;
-    margin-top: 8px;
-    padding: 7px 12px;
-    border-radius: 7px;
-    font-size: 13px;
-}
-
-.leaflet-popup-content {
-    margin: 12px 14px;
-}
-
 .popular-stations {
     display: flex;
     align-items: center;

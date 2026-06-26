@@ -104,18 +104,6 @@
         if (!e.target.closest('.autocomplete-wrapper')) {
             suggestionsEl.classList.remove('active');
         }
-
-        const popupButton = e.target.closest('.map-popup-button');
-        if (!popupButton) {
-            return;
-        }
-
-        const stationId = popupButton.dataset.stationId;
-        const marker = mapMarkers.get(String(stationId));
-
-        if (marker) {
-            marker.fire('click');
-        }
     });
 
     calcBtn.addEventListener('click', calculate);
@@ -306,10 +294,8 @@
                 fillOpacity: selected ? 0.9 : 0.78,
             });
 
-            marker.bindPopup(buildStationPopup(station));
             marker.on('click', () => {
                 selectStation(station.id, station.name, station, { focusMap: false });
-                marker.openPopup();
                 hideError();
             });
 
@@ -318,22 +304,6 @@
         });
 
         updateSelectedMapMarker(stationIdInput.value);
-    }
-
-    function buildStationPopup(station) {
-        const meta = buildStationMeta(station);
-        const dailyStart = station.daily_start ? formatDate(station.daily_start) : '—';
-        const dailyEnd = station.daily_end ? formatDate(station.daily_end) : '—';
-
-        return `
-            <div class="map-popup">
-                <strong>${escapeHtml(station.name || station.id || 'Метеостанция')}</strong>
-                ${meta ? `<div>${escapeHtml(meta)}</div>` : ''}
-                <div>ID: ${escapeHtml(station.id || '—')}</div>
-                <div>Daily: ${escapeHtml(dailyStart)} — ${escapeHtml(dailyEnd)}</div>
-                <button type="button" class="map-popup-button" data-station-id="${escapeHtml(station.id || '')}">Выбрать</button>
-            </div>
-        `;
     }
 
     function focusStationOnMap(station) {
