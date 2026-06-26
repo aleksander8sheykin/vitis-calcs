@@ -6,6 +6,7 @@ services:
     container_name: vine-calcs-php
     volumes:
       - ./php:/var/www/html
+      - ./frontend:/var/www/frontend:ro
     networks:
       - vine-net
     restart: unless-stopped

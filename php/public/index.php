@@ -26,6 +26,87 @@ use App\Calculator;
 use App\MeteostatClient;
 use App\StationFinder;
 
+$uri = parse_url($_SERVER['REQUEST_URI'] ?? '/', PHP_URL_PATH) ?: '/';
+$currentYear = (int) date('Y');
+
+/**
+ * Отдать страницу SAT/GDD через PHP, чтобы <title> формировался на сервере
+ * с учётом выбранной метеостанции из query-параметров.
+ */
+function renderSatGddPage(): void
+{
+    $stationId = trim((string) ($_GET['station_id'] ?? $_GET['station'] ?? $_GET['id'] ?? ''));
+    $stationName = trim((string) ($_GET['station_name'] ?? $_GET['name'] ?? ''));
+
+    if ($stationId !== '') {
+        try {
+            $finder = new StationFinder();
+            $station = $finder->getById($stationId);
+
+            if ($station !== null && !empty($station['name'])) {
+                $stationName = (string) $station['name'];
+            }
+        } catch (\Throwable) {
+            // Если справочник недоступен, используем имя из URL или сам ID станции.
+        }
+    }
+
+    if ($stationName === '' && $stationId !== '') {
+        $stationName = $stationId;
+    }
+
+    $defaultTitle = 'SAT / GDD калькулятор для винограда — сумма активных температур';
+    $pageTitle = $stationName !== ''
+        ? $stationName . ' — SAT / GDD калькулятор для винограда'
+        : $defaultTitle;
+    $ogTitle = $stationName !== ''
+        ? $stationName . ' — SAT / GDD калькулятор для винограда'
+        : 'SAT / GDD калькулятор для винограда';
+
+    $templatePath = dirname(__DIR__, 2) . '/frontend/sat-gdd/index.html';
+
+    if (!is_file($templatePath)) {
+        http_response_code(500);
+        header('Content-Type: text/plain; charset=utf-8');
+        echo 'Шаблон страницы SAT/GDD не найден';
+        exit;
+    }
+
+    $html = file_get_contents($templatePath);
+
+    if ($html === false) {
+        http_response_code(500);
+        header('Content-Type: text/plain; charset=utf-8');
+        echo 'Не удалось прочитать шаблон страницы SAT/GDD';
+        exit;
+    }
+
+    $escapedTitle = htmlspecialchars($pageTitle, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+    $escapedOgTitle = htmlspecialchars($ogTitle, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
+
+    $html = preg_replace_callback(
+        '/<title>.*?<\/title>/s',
+        static fn(): string => '<title>' . $escapedTitle . '</title>',
+        $html,
+        1
+    ) ?? $html;
+
+    $html = preg_replace_callback(
+        '/<meta\s+property="og:title"\s+content="[^"]*"\s*>/i',
+        static fn(): string => '<meta property="og:title" content="' . $escapedOgTitle . '">',
+        $html,
+        1
+    ) ?? $html;
+
+    header('Content-Type: text/html; charset=utf-8');
+    echo $html;
+}
+
+if ($uri === '/sat-gdd' || $uri === '/sat-gdd/') {
+    renderSatGddPage();
+    exit;
+}
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: GET, OPTIONS');
@@ -35,9 +116,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'OPTIONS') {
     http_response_code(200);
     exit;
 }
-
-$uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
-$currentYear = (int) date('Y');
 
 /**
  * Найти дату последней daily-записи в загруженном файле Meteostat.
